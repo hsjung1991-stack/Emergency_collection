@@ -1,0 +1,29 @@
+name: ER Data Collector
+
+on:
+  schedule:
+    - cron: "*/5 * * * *" # 매 5분마다 자동 실행
+  workflow_dispatch:      # 우리가 버튼을 눌러서 수동으로 테스트할 수 있게 해줌
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run Collector
+        env:
+          # 여기서 GitHub 금고에 숨겨둔 DB 주소를 파이썬에게 줍니다.
+          DATABASE_URL: ${{ secrets.DATABASE_URL }} 
+        run: |
+          python collector.py
