@@ -61,3 +61,6 @@ def fetch_and_store_to_supabase():
 
 if __name__ == '__main__':
     fetch_and_store_to_supabase()
+
+# API 응답 결과가 어떻게 나오는지 로그에 찍는 코드 (중요!)
+print(f"DEBUG: API Response: {response.text}")
