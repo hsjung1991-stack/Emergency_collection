@@ -22,7 +22,7 @@ def fetch_and_store_to_supabase():
         return
 
     url = 'http://apis.data.go.kr/B552657/ErmctInfoInqireService/getEmrrmRltmUsefulSckbdInfoInqire'
-    params = {'serviceKey': service_key, 'STAGE1': '서울특별시', 'pageNo': '1', 'numOfRows': '100'}
+    params = {'serviceKey': service_key, 'pageNo': '1', 'numOfRows': '1000'}
 
     try:
         # API 호출
