@@ -3,17 +3,17 @@ name: ER Data Collector
 on:
   schedule:
     - cron: "*/5 * * * *" # 매 5분마다 자동 실행
-  workflow_dispatch:      # 우리가 버튼을 눌러서 수동으로 테스트할 수 있게 해줌
+  workflow_dispatch:      # 수동으로 실행(테스트)할 수 있는 버튼 생성
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.9'
 
@@ -23,7 +23,8 @@ jobs:
 
       - name: Run Collector
         env:
-          # 여기서 GitHub 금고에 숨겨둔 DB 주소를 파이썬에게 줍니다.
-          DATABASE_URL: ${{ secrets.DATABASE_URL }} 
+          # GitHub Secrets 금고에 숨겨둔 두 가지 비밀키를 꺼내서 파이썬에 전달!
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATA_GO_KR_API_KEY: ${{ secrets.DATA_GO_KR_API_KEY }}
         run: |
           python collector.py
