@@ -2,8 +2,8 @@ name: ER Data Collector
 
 on:
   schedule:
-    - cron: "*/5 * * * *" # 매 5분마다 자동 실행
-  workflow_dispatch:      # 수동으로 실행(테스트)할 수 있는 버튼 생성
+    - cron: '*/5 * * * *'  # 🌟 5분마다 실행 (가장 중요!)
+  workflow_dispatch:       # 수동 실행 버튼 유지
 
 jobs:
   build:
@@ -19,12 +19,10 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install -r requirements.txt
+          pip install requests beautifulsoup4 lxml pandas sqlalchemy psycopg2-binary
 
       - name: Run Collector
         env:
-          # GitHub Secrets 금고에 숨겨둔 두 가지 비밀키를 꺼내서 파이썬에 전달!
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
           DATA_GO_KR_API_KEY: ${{ secrets.DATA_GO_KR_API_KEY }}
-        run: |
-          python collector.py
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: python collector.py
