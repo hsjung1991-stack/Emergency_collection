@@ -8,8 +8,8 @@ from sqlalchemy import create_engine
 def fetch_and_store_to_supabase():
     print(f"[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] 데이터 수집 시작...")
     
-    # 1. API 데이터 수집 (형선님의 API 키를 꼭 넣으세요!)
-    service_key = 'f9fa75755c9d7092653ab728d6d00a450a5360ae4a1f6c8309e18f3ecd732b39' 
+    # 1. API 데이터 수집
+    service_key = os.environ.get('DATA_GO_KR_API_KEY')
     url = 'http://apis.data.go.kr/B552657/ErmctInfoInqireService/getEmrrmRltmUsefulSckbdInfoInqire'
     params = {'serviceKey': service_key, 'STAGE1': '서울특별시', 'pageNo': '1', 'numOfRows': '100'}
 
